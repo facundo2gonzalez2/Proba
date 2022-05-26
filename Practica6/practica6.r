@@ -50,6 +50,36 @@ proba_mas30
 #b
 
 
+#c
+quantile(lamparas$V1,0.1)
+
+
+#ejercicio 3
+
+graduados=read.table(file="graduados.txt", header = FALSE)
+#a
+mean(graduados$V1)
+median(graduados$V1)
+
+#b
+sd(graduados$V1)
+distanciaIntercuantil = quantile(graduados$V1,0.75)-quantile(graduados$V1,0.25)
+distanciaIntercuantil
+
+#c
+hist(graduados$V1)
+
+#d
+boxplot(graduados$V1)
+
+
+
+
+
+
+
+
+
 
 
 

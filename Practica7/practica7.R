@@ -20,6 +20,26 @@ desvio
 #b
 
 mediciones=c(25.11, 25.02, 25.16, 24.98, 24.83, 25.05, 24.94, 25.04, 24.99, 24.96, 25.03, 24.97, 24.93, 25.12, 25.01, 25.12, 24.90, 24.98, 25.10, 24.96)
-#X es normal(mu, 0,001)
+#X es normal(mu, 0,01)
 mu=mean(mediciones)
 mu
+#la varianza de mu es la varianza de xprom que es v(x)/n
+
+var_mu=(0.01)/length(mediciones)
+var_mu
+
+#c
+
+mediciones2=c(12.51, 11.66, 11.91, 12.25, 11.54, 11.36, 12.40, 12.19, 12.88, 12.16, 12.69, 12.91,12.12, 11.02, 12.53, 11.77, 12.72, 10.56, 11.52, 11.66, 12.25, 12.09, 11.48, 12.36)
+var_mediciones=(sd(mediciones2)**2) #debería estimar con mu=12, para ser mas preciso
+
+
+####ejercicio 4####
+#d
+lamparas=c(39.08, 45.27, 26.27, 14.77, 65.84, 49.64, 0.80, 66.58, 69.60, 32.42, 228.36, 64.79, 9.38, 3.86, 37.18, 104.75, 3.64, 104.19, 8.17, 8.36)
+tita = 1/mean(lamparas)
+tita
+x=-log(0.1)*mean(lamparas)
+x
+
+quantile(lamparas,0.9)

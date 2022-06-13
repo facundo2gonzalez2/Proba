@@ -1,0 +1,63 @@
+---
+title: "Estimación puntual"
+output: html_document # pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen = 999)
+
+set.seed(0)
+
+r = 10
+p = 0.7
+n = 100
+
+## X_i: cantidad de veces que se aplicó la estrategia en el i-esimo juego
+X = rnbinom(n, size = r, prob= p) + r
+E_X = mean(X)
+var_X = var(X)*(n-1)/n
+
+r_hat = round(E_X^2/(var_X+ E_X),2)
+p_hat = round(E_X/(var_X +E_X),3)
+
+```
+
+
+Ejercicio 1
+---------
+
+* Considere un juego de computadora en el que la estrategia seguida por el adversario es siempre la misma de tal forma que la probabilidad de anotar es fija dada por $p$. La computadora dá por terminado el juego cuando se lograron $r$ éxitos por parte del adversario pero ésta sólo informa la cantidad de jugadas realizadas. Para estimar cual es la probabilidad de anotar $p$ y con cuántos éxitos $r$ se termina un juego decidimos jugarlo $`r n`$ veces y anotar los resultados que arroja la compu. Así las observaciones son:
+
+
+<table>
+<tr>
+`r X[1:25]`
+</tr>
+<tr>
+`r X[26:50]` </tr>
+<tr>
+`r X[51:75]` 
+</tr>
+<tr>
+`r X[76:100]`
+</tr>
+</table>
+
+Los estimadores de momentos de $p$ y $r$ son:
+
+$$
+\hat{p}_M = \displaystyle\frac{\bar{X_n}}{\frac{1}{n}\sum_{i=1}^n(X_i - \bar{X_n})^2 +\bar{X_n}}
+$$
+$$
+\hat{r}_M = \displaystyle\frac{\bar{X_n}^2}{\frac{1}{n}\sum_{i=1}^n(X_i - \bar{X_n})^2 +\bar{X_n}}
+$$
+
+Si $n = `r n`$ obtenemos para estas observaciones el promedio muestral y la varianza empírica son $\bar{X}_n = `r E_X`$, $\frac{1}{n}\sum_{i=1}^n(X_i - \bar{X_n})^2 = `r var_X`$
+
+Las estimaciones de $r$ y $p$ basadas en los estimadores de momentos son:
+
+$$
+\hat{r} = `r r_hat`, \hat{p} = `r p_hat`
+$$ 
+

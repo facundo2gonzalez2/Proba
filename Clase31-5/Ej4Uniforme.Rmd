@@ -1,0 +1,95 @@
+---
+title: "Estimación puntual"
+output: html_document # pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen = 999)
+
+set.seed(0)
+
+n = 100
+theta = -1
+
+X = runif(n, min=theta-1/2, theta + 1/2)
+
+theta_MV = (min(X)+max(X))/2
+
+
+theta_M = mean(X)
+
+
+```
+
+<h2> Ejercicio 4 </h2>
+
+Sea $X_1, \dots, X_n$ una muestra aleatoria proveniente de una distribución uniforme en el intervalo $[\theta -\frac{1}{2}, \theta+\frac{1}{2}]$ con $\theta$ un parámetro que se quiere estimar.
+
+Si se obtuvieron las siguientes observaciones
+
+<table>
+<tr>
+`r X[1:25]`
+</tr>
+<tr>
+`r X[26:50]` </tr>
+<tr>
+`r X[51:75]` 
+</tr>
+<tr>
+`r X[76:100]`
+</tr>
+</table>
+
+dar una estimación de $\theta$ basada en el estimador $\hat{\theta}_{MV}$ de máxima verosimilitud.
+
+<h2> Solution </h2>
+
+Cada $X_i$ tiene densidad 
+$$
+f(x_i;\theta) = \begin{cases}
+1 & \quad si \quad \theta-1/2 \leq x_i \leq \theta+1/2\\
+0 & \quad sino
+\end{cases}
+$$
+
+Luego la función de verosimilitud es:
+$$
+L(\theta) = \begin{cases}
+1 & \quad si \quad \theta-1/2 \leq x_i \leq \theta+1/2\quad i=1,\dots,n\\
+0 & \quad sino
+\end{cases}
+$$
+pero $X_1,\dots,X_n \leq \theta +1/2$ si y sólo si 
+$$\max_{i}(X_i)\leq \theta +1/2$$
+y $X_1,\dots,X_n \geq \theta -1/2$ si y sólo si 
+$$\min_{i}(X_i)\geq \theta -1/2$$
+de donde concluimos que 
+$$
+L(\theta) = \begin{cases}
+1 & \quad si \quad \max_{i}(X_i)-1/2 \leq \theta \leq \min_{i}(X_i)+1/2\\
+0 & \quad sino
+\end{cases}
+$$
+
+con lo cual todos los puntos del intervalo $[\max_{i}(X_i)-1/2, \min_{i}(X_i)+1/2]$ son máximos de la función $L(\theta)$. En particular podemos tomar 
+
+$$
+\hat{\theta}_{MV} = \frac{\min_{i}(X_i)+\max_{i}(X_i)}{2}
+$$
+
+Para las observaciones dadas una estimación de $\theta$ es: $`r theta_MV`$.
+
+
+
+<h2> Bonus </h2>
+
+Veamos como queda la estimación de $\theta$ basada en el estimador de momentos $\hat{\theta}_M$:
+
+Como $E(X) =\theta$ para todas las $X_i$, el estimador $\hat{\theta}_M$ es:
+
+$$
+\hat{\theta}_M = \bar{X}_n
+$$
+entonces la estimación es $`r theta_M`$.

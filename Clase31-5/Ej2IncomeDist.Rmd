@@ -1,0 +1,82 @@
+---
+title: "Estimación puntual"
+output: html_document # pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen = 999)
+
+set.seed(0)
+
+n = 100
+theta = 100
+
+U = runif(n, min = 0, max = 1)
+Y = round(theta/((1-U)^(1/3)),1)
+
+E_Y = mean(Y)
+var_Y = var(Y)*(n-1)/n
+
+theta_MV = min(Y)
+
+theta_M = 2*mean(Y)/3
+
+
+```
+
+
+<strong><h2> Ejercicio </h2></strong>
+
+* El ingreso anual de una persona de un cierto sector de la población es una variable aleatoria $Y$ que se puede modelar con la siguiente densidad 
+$$
+f(y; \theta) = \frac{3\theta^3}{y^4}I_{[\theta, +\infty]}(y)
+$$
+
+Se realiza una encuesta sobre los ingresos a $`r n`$ personas de dicho sector obteniéndose como resultado las siguientes observaciones en miles de dolares
+
+<table>
+<tr>
+`r Y[1:25]`
+</tr>
+<tr>
+`r Y[26:50]` 
+</tr>
+<tr>
+`r Y[51:75]` 
+</tr>
+<tr>
+`r Y[76:100]`
+</tr>
+</table>
+
+
+
+A partir de estas observaciones dar una estimación del parámetro $\theta$ basado en el estimador de máxima verosimilutd $\hat{\theta}_{MV}$
+
+
+
+<strong><h2> Solución: </h2> </strong>
+
+La función de verosimilitud es 
+$$
+l(\theta) = \displaystyle\prod_{i=1}^{n}f(y_i;\theta) = \begin{cases}
+\prod_{i=1}^{n}\frac{3\theta^3}{y_i^4},  & si \quad \theta < \min_{i}(Y_i)\\
+0 & sino
+\end{cases}
+$$
+
+El estimador de máxima verosimilitud de $\theta$ está dado por $\hat{\theta}_{MV} = \displaystyle\min_{1\leq i\leq n}(Y_i)$.
+
+Usando las observaciones obtenemos una estimación de $\hat{\theta}=`r theta_MV`$.
+
+
+<h3>Bonus </h3>
+
+el estimador de momentos de $\theta$ es: $\hat{\theta}_M = \frac{2\bar{Y}_n}{3}$
+
+esto sale de calcular la esperanza $E(Y)=\int_{\theta}^{+\infty}\frac{y}{3\theta^3}{y^4}dy = \frac{3}{2}\theta$.
+
+Luego la estimación de $\theta$ basada en momentos es: $`r theta_M`$
+
+
